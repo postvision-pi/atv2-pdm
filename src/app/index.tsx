@@ -1,7 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { useState } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -12,6 +14,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, radius } from '../constants/appTheme';
+import { api } from '../services/api';
 
 export default function Login() {
   const router = useRouter();
@@ -19,14 +22,42 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  function handleLogin() {
-    // Troque pela chamada real de autenticação
-    router.replace('/home');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  async function handleLogin() {
+    if (!email || !password) {
+      setErrorMessage('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    setIsLoading(true);
+    setErrorMessage(''); 
+
+    try {
+      const response = await api.post('/auth', {
+        email: email.trim(),
+        password: password
+      });
+
+      const { token } = response.data;
+
+      await SecureStore.setItemAsync('userToken', token);
+
+      // router.replace('/home');
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        setErrorMessage('E-mail ou senha incorretos.');
+      } else {
+        setErrorMessage('Não foi possível conectar. Tente novamente.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Decoração */}
       <View style={styles.circleTop} pointerEvents="none" />
       <View style={styles.arcBottomOuter} pointerEvents="none" />
       <View style={styles.arcBottomInner} pointerEvents="none" />
@@ -36,6 +67,11 @@ export default function Login() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <Text style={styles.title}>Login</Text>
+
+        {/* Mensagem de erro */}
+        {errorMessage ? (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        ) : null}
 
         <Text style={styles.label}>E-mail</Text>
         <View style={styles.inputBox}>
@@ -48,6 +84,7 @@ export default function Login() {
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
+            editable={!isLoading}
           />
         </View>
 
@@ -62,6 +99,7 @@ export default function Login() {
             secureTextEntry={!showPassword}
             autoCapitalize="none"
             autoCorrect={false}
+            editable={!isLoading}
           />
           <Pressable onPress={() => setShowPassword((v) => !v)} hitSlop={10}>
             <Ionicons
@@ -72,13 +110,21 @@ export default function Login() {
           </Pressable>
         </View>
 
-        <Pressable style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        <Pressable 
+          style={[styles.button, isLoading && styles.buttonDisabled]} 
+          onPress={handleLogin}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+            <Text style={styles.buttonText}>Entrar</Text>
+          )}
         </Pressable>
 
         <View style={styles.signupRow}>
           <Text style={styles.signupText}>Não tem conta?</Text>
-          <Pressable onPress={() => router.push('./register')}>
+          <Pressable onPress={() => router.push('./register')} disabled={isLoading}>
             <Text style={styles.signupLink}>Cadastre-se</Text>
           </Pressable>
         </View>
@@ -132,7 +178,14 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '700',
     color: colors.text,
-    marginBottom: 36,
+    marginBottom: 24, // Reduzido levemente para dar espaço ao erro
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   label: {
     fontSize: 14,
@@ -159,12 +212,15 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   button: {
-    marginTop: 64,
+    marginTop: 48,
     height: 46,
     borderRadius: radius.button,
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonDisabled: {
+    opacity: 0.7,
   },
   buttonText: {
     color: colors.white,
