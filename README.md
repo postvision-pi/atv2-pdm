@@ -89,7 +89,7 @@ Desenvolvido para a disciplina de **Programação para Dispositivos Móveis I (P
 **Instituição:** Fatec Registro  
 **Curso:** Desenvolvimento de Software Multiplataforma (DSM)
 **Alunos:**
-*Carlos Henrique dos Santos Silva*
-*Heloísa Vale dos Santos*
-*Raissa de Oliveira Souza*
+*Carlos Henrique dos Santos Silva*,
+*Heloísa Vale dos Santos*,
+*Raissa de Oliveira Souza*,
 *Renan Zanetti Oliveira*
