@@ -44,7 +44,7 @@ export default function Login() {
 
       await SecureStore.setItemAsync('userToken', token);
 
-      // router.replace('/home');
+    router.replace('/home');
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         setErrorMessage('E-mail ou senha incorretos.');

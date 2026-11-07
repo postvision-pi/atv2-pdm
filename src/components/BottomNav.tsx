@@ -1,3 +1,4 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -10,16 +11,20 @@ type Props = {
   active: TabRoute;
 };
 
-const TABS: { route: TabRoute; label: string; href: '/home' | '/stats' | '/profile' }[] = [
-  { route: 'Home', label: 'Início', href: '/home' },
-  { route: 'Stats', label: 'Stats', href: '/stats' },
-  { route: 'Profile', label: 'Perfil', href: '/profile' },
+const TABS: {
+  route: TabRoute;
+  label: string;
+}[] = [
+  { route: 'Home', label: 'Início' },
+  { route: 'Stats', label: 'Stats' },
+  { route: 'Profile', label: 'Perfil' },
 ];
 
 function TabIcon({ route }: { route: TabRoute }) {
   if (route === 'Home') {
     return <Ionicons name="home" size={28} color={colors.primary} />;
   }
+
   if (route === 'Stats') {
     return (
       <View style={styles.statsIcon}>
@@ -27,6 +32,7 @@ function TabIcon({ route }: { route: TabRoute }) {
       </View>
     );
   }
+
   return <Ionicons name="person" size={28} color={colors.primary} />;
 }
 
@@ -34,19 +40,26 @@ export default function BottomNav({ active }: Props) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
+  function handleNavigation(route: TabRoute) {
+    if (route === 'Home' && active !== 'Home') {
+      router.replace('/home');
+    }
+  }
+
   return (
     <View
       pointerEvents="box-none"
       style={[styles.wrapper, { bottom: Math.max(insets.bottom, 12) }]}
     >
       <View style={styles.pill}>
-        {TABS.map(({ route, label, href }) => {
+        {TABS.map(({ route, label }) => {
           const isActive = route === active;
+
           return (
             <Pressable
               key={route}
               style={[styles.item, isActive && styles.itemActive]}
-              onPress={() => !isActive && router.replace(href)}
+              onPress={() => handleNavigation(route)}
             >
               <TabIcon route={route} />
               <Text style={styles.label}>{label}</Text>
