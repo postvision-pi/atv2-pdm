@@ -1,56 +1,95 @@
-# Welcome to your Expo app 👋
+# PostVision Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile desenvolvido com **React Native e Expo** como parte do Projeto Integrador (PI) do curso de Desenvolvimento de Software Multiplataforma da Fatec Registro.
 
-## Get started
+## Sobre o projeto
 
-1. Install dependencies
+O **PostVision** é uma aplicação voltada à análise e correção da postura durante a prática de exercícios físicos. Utilizando inteligência artificial, a proposta é auxiliar os usuários na execução correta dos movimentos, contribuindo para a prevenção de lesões e para a prática de atividades físicas mais seguras.
+
+## Tecnologias utilizadas
+
+- React Native
+- Expo
+- TypeScript
+- Expo Router
+- Axios
+- React Hooks (`useState` e `useEffect`)
+- StyleSheet e Flexbox
+
+## Funcionalidades
+
+O aplicativo reúne funcionalidades para auxiliar o usuário durante sua experiência:
+
+- **Login e cadastro:** acesso à aplicação e gerenciamento de autenticação.
+- **Tela inicial:** apresentação de informações importantes, estatísticas, sugestões de exercícios e sequência de atividades.
+- **Navegação principal:** acesso às diferentes áreas do aplicativo.
+- **Escolha de exercícios:** visualização e seleção dos exercícios disponíveis.
+- **Passo a passo:** orientações para a execução dos movimentos.
+
+## Como executar o projeto
+
+### Pré-requisitos
+
+- Node.js instalado.
+- npm instalado.
+- Expo Go ou emulador Android configurado.
+
+### Instalação
+
+1. Clone o repositório:
+
+   ```bash
+   git clone URL_DO_REPOSITORIO
+   ```
+
+2. Acesse a pasta do projeto:
+
+   ```bash
+   cd atv2-pdm
+   ```
+
+3. Instale as dependências:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+4. Inicie o servidor Expo:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+5. Execute o aplicativo utilizando o Expo Go ou um emulador Android.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Estrutura do projeto
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+A aplicação utiliza o Expo Router para organização das telas e navegação, além de componentes reutilizáveis para facilitar a manutenção e organização do código.
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+atv2-pdm/
+├── src/
+│   ├── app/
+│   │   ├── index.tsx
+│   │   ├── home.tsx
+│   │   └── ...
+│   └── components/
+│       ├── BottomNav.tsx
+│       ├── BottomNavItem.tsx
+│       └── ...
+├── assets/
+├── package.json
+└── README.md
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+## Projeto acadêmico
 
-### Other setup steps
+Desenvolvido para a disciplina de **Programação para Dispositivos Móveis I (PDM)**, como parte da Atividade Avaliativa II, vinculada ao Projeto Integrador.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Instituição:** Fatec Registro  
+**Curso:** Desenvolvimento de Software Multiplataforma (DSM)
+**Alunos:**
+*Carlos Henrique dos Santos Silva*
+*Heloísa Vale dos Santos*
+*Raissa de Oliveira Souza*
+*Renan Zanetti Oliveira*
