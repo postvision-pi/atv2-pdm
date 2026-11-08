@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,6 +16,7 @@ const COLORS = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("Início");
 
   return (
@@ -57,7 +59,12 @@ export default function Home() {
               <View style={styles.scanCornerBottom} />
             </View>
 
-            <Pressable style={styles.startButton}>
+            <Pressable
+              style={styles.startButton}
+              onPress={() => router.push('/escolha-exercicio')}
+              accessibilityRole="button"
+              accessibilityLabel="Escolher exercício para análise"
+            >
               <Text style={styles.startButtonText}>Iniciar</Text>
               <Ionicons name="camera" size={21} color={COLORS.white} />
             </Pressable>
