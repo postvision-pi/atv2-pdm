@@ -16,7 +16,6 @@ function isExercise(value: unknown): value is Exercise {
 }
 
 export async function getExercises(signal: AbortSignal): Promise<Exercise[]> {
-  // A grafia /exercice é a da API. A listagem é pública e não exige JWT.
   const { data } = await api.get<unknown>('/exercice', {
     signal,
     timeout: 60000,
